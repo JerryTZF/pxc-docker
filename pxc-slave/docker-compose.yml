@@ -1,0 +1,49 @@
+version: "3.5"
+
+services:
+  pxc02:
+    image: percona/percona-xtradb-cluster:5.7
+    container_name: pxc-02
+    restart: always
+    privileged: true
+    ports:
+      - "33062:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=oa3uTgs9K2soZljX
+      - CLUSTER_NAME=pxc
+      - CLUSTER_JOIN=pxc-master
+    volumes:
+      - $PWD/data1:/var/lib/mysql
+
+  pxc03:
+    image: percona/percona-xtradb-cluster:5.7
+    container_name: pxc-03
+    restart: always
+    privileged: true
+    ports:
+      - "33063:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=oa3uTgs9K2soZljX
+      - CLUSTER_NAME=pxc
+      - CLUSTER_JOIN=pxc-master
+    volumes:
+      - $PWD/data2:/var/lib/mysql
+
+  pxc04:
+    image: percona/percona-xtradb-cluster:5.7
+    container_name: pxc-04
+    restart: always
+    privileged: true
+    ports:
+      - "33064:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=oa3uTgs9K2soZljX
+      - CLUSTER_NAME=pxc
+      - CLUSTER_JOIN=pxc-master
+    volumes:
+      - $PWD/data3:/var/lib/mysql
+
+networks:
+  default:
+    external:
+      name: mysql_net
